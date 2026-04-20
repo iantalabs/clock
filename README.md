@@ -1,5 +1,7 @@
 # Clock App
 
+![Clock App Screenshot](stopwatch.png)
+
 A simple clock and stopwatch application built with React and Vite.
 
 ## Features
