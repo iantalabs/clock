@@ -115,7 +115,7 @@ function App() {
               <button onClick={() => setSwRunning(r => !r)}>
                 {swRunning ? 'Pause' : 'Start'}
               </button>
-              <button onClick={() => { setSwMs(0); setSwRunning(false); }}>
+              <button onClick={() => { setSwMs(0); setSwDurationMs(0); setSwRunning(false); }}>
                 Reset
               </button>
               {STOPWATCH_PRESETS.map(preset => (
