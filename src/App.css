@@ -1,0 +1,146 @@
+.mode-switch-bottom button {
+  background: #181818;
+  border: 3px solid #ffbfae;
+  color: #ffbfae;
+  /* Make button height 10% of viewport height */
+  height: 10vh;
+  font-family: inherit;
+  /* scale label to the button height */
+  font-size: calc(0.42 * 10vh);
+  padding: 0 2.4vw;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  opacity: 1;
+  margin: 0 1vw;
+  min-width: 6rem;
+  outline: none;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mode-switch-bottom button.active, .mode-switch-bottom button:hover {
+  background: #ffbfae22;
+  color: #fff;
+  opacity: 1;
+}
+
+.stopwatch-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Make stopwatch digits same size as clock digits */
+.clock-digits.stopwatch {
+  /* Inherit all styles from .clock-digits for perfect match */
+}
+
+
+.stopwatch-controls {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.stopwatch-controls button {
+  background: #ffbfae22;
+  color: #ffbfae;
+  border: 2px solid #ffbfae;
+  border-radius: 0.8em;
+  font-size: 1.1rem;
+  font-family: inherit;
+  padding: 0.3em 1.1em;
+  cursor: pointer;
+  margin-bottom: 0.2em;
+  transition: background 0.2s, color 0.2s;
+}
+.stopwatch-controls button:hover {
+  background: #ffbfae;
+  color: #181818;
+}
+
+body {
+  background: #111;
+}
+
+.clock-app {
+  width: 100vw;
+  height: 100vh;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+}
+
+.mode-switch-bottom {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw;
+  /* Positioned at the bottom of screen */
+  padding: 2vh 0 calc(2vh + env(safe-area-inset-bottom));
+  background: #111;
+}
+
+.clock-center-classic {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.clock-center {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.clock-digits {
+  color: #ffbfae;
+  font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
+  /* Half screen height - centered vertically */
+  font-size: 50vh;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: transparent;
+  border-radius: 1rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: text-shadow 0.3s, transform 0.2s;
+  /* soft peach glow */
+  text-shadow: 0 18px 40px rgba(255,191,174,0.12), 0 4px 0 rgba(0,0,0,0.6);
+  height: fit-content;
+}
+
+.clock-hour, .clock-minute, .clock-second {
+  transition: color 0.3s;
+}
+
+.clock-colon {
+  color: #ffbfae;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  padding: 0 0.1em;
+}
+
+@media (max-width: 600px) {
+  .clock-digits,
+  .clock-digits.stopwatch {
+    padding: 0.12em 0.22em;
+  }
+}
