@@ -12,6 +12,8 @@ A simple clock and stopwatch application built with React and Vite.
 
 ## Installation
 
+0. Just open the `dist/index.html` file in your browser to see the application in action. No installation is required.
+
 1. Clone the repository:
 
 ```bash
