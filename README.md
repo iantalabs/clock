@@ -13,6 +13,20 @@ A simple clock and stopwatch application built with React and Vite.
 ## Installation
 
 0. Just open the `dist/index.html` file in your browser to see the application in action. No installation is required.
+   To regenerate the single HTML file app in dist, run:
+
+```bash
+npm run build
+```
+
+Or directly with Vite:
+
+```bash
+npx vite build
+```
+
+The project uses the vite-plugin-singlefile plugin, which bundles everything (CSS, JavaScript, assets) into a single index.html file in the dist folder.
+The build output will be ready for deployment.
 
 1. Clone the repository:
 
@@ -38,7 +52,7 @@ npm install
 npm run dev
 ```
 
-5. Open your browser and go to `http://localhost:3000` to see the application in action.
+5. Open your browser and go to `http://localhost:5173/` to see the application in action.
 
 ## Technologies Used
 
