@@ -1,6 +1,5 @@
 
 import { useState, useEffect, useRef } from 'react';
-import './App.css';
 
 function pad(num, len = 2) {
   return num.toString().padStart(len, '0');

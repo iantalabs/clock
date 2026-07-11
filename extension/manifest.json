@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Clock Overlay",
+  "version": "0.1.0",
+  "description": "Transparent, resizable top-right clock/stopwatch overlay for the current page.",
+  "action": { "default_title": "Toggle Clock Overlay" },
+  "background": { "service_worker": "background.js" },
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": [
+    "http://127.0.0.1/*",
+    "http://localhost/*",
+    "https://www.youtube.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://127.0.0.1/*",
+        "http://localhost/*",
+        "https://www.youtube.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}
