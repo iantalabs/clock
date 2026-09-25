@@ -6,19 +6,38 @@
   height: 10vh;
   font-family: inherit;
   /* scale label to the button height */
-  font-size: calc(0.42 * 10vh);
+  font-size: min(calc(0.42 * 10vh), 5vw);
   padding: 0 2.4vw;
   border-radius: 0.6rem;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, border 0.2s;
   opacity: 1;
   margin: 0 1vw;
-  min-width: 6rem;
+  min-width: min(6rem, 26vw);
   outline: none;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+/* Pace mode shares the window with a test: the switch is a thin strip. */
+.mode-switch-bottom.compact {
+  gap: 4px;
+  padding: 3px 4px calc(4px + env(safe-area-inset-bottom));
+}
+.mode-switch-bottom.compact button {
+  height: 22px;
+  font-size: min(12px, 5.4vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-width: 1.5px;
+  border-radius: 0.4rem;
+  padding: 0 0.6em;
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 0;
+  max-width: 7rem;
 }
 .mode-switch-bottom button.active, .mode-switch-bottom button:hover {
   background: #ffbfae22;
@@ -69,6 +88,8 @@ body {
 .clock-app {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background: #111;
   display: flex;
   flex-direction: column;

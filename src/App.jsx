@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef } from 'react';
+import PaceMode from './PaceMode.jsx';
 
 function pad(num, len = 2) {
   return num.toString().padStart(len, '0');
@@ -30,8 +31,30 @@ const STOPWATCH_PRESETS = [
   { label: '3min', ms: 3 * 60 * 1000 },
 ];
 
+const MODE_KEY = 'clock.mode';
+const MODES = ['clock', 'stopwatch', 'pace'];
+
+function loadMode() {
+  try {
+    const m = localStorage.getItem(MODE_KEY);
+    return MODES.includes(m) ? m : 'clock';
+  } catch {
+    return 'clock';
+  }
+}
+
 function App() {
-  const [mode, setMode] = useState('clock'); // 'clock' | 'stopwatch'
+  const [mode, setMode] = useState(loadMode); // 'clock' | 'stopwatch' | 'pace'
+  const [paceRunning, setPaceRunning] = useState(false);
+
+  // Remember the mode, so a reload mid-test comes back to Pace mode.
+  useEffect(() => {
+    try {
+      localStorage.setItem(MODE_KEY, mode);
+    } catch {
+      // No storage: start in Clock mode next time.
+    }
+  }, [mode]);
 
   // Clock state
   const [time, setTime] = useState(getCurrentTime());
@@ -95,7 +118,8 @@ function App() {
   // UI
   return (
     <div className="clock-app">
-      <div className="clock-center-classic">
+      {mode === 'pace' && <PaceMode onRunningChange={setPaceRunning} />}
+      {mode !== 'pace' && <div className="clock-center-classic">
         {mode === 'clock' && (
           <div className="clock-digits">
             <span className="clock-hour">{time.hours}</span>
@@ -125,8 +149,8 @@ function App() {
             </div>
           </div>
         )}
-      </div>
-      <div className="mode-switch-bottom">
+      </div>}
+      {!(mode === 'pace' && paceRunning) && <div className={`mode-switch-bottom${mode === 'pace' ? ' compact' : ''}`}>
         <button
           className={mode === 'clock' ? 'active' : ''}
           onClick={() => setMode('clock')}
@@ -135,7 +159,11 @@ function App() {
           className={mode === 'stopwatch' ? 'active' : ''}
           onClick={() => setMode('stopwatch')}
         >Stopwatch</button>
-      </div>
+        <button
+          className={mode === 'pace' ? 'active' : ''}
+          onClick={() => setMode('pace')}
+        >Pace</button>
+      </div>}
     </div>
   );
 }

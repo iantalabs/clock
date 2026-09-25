@@ -1,0 +1,185 @@
+/* Pace mode. Built for a narrow window beside a test: the bar and the total time left
+   stay at every size, the other readouts scale down first and then drop in order
+   (pages left, page N / P, time left on page). */
+
+.pace {
+  --pace-c: #ffbfae;
+  --pace-gap: clamp(4px, 2.5vw, 16px);
+  container: pace / size;
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  gap: var(--pace-gap);
+  padding: clamp(4px, 1.5dvh, 12px) var(--pace-gap);
+  box-sizing: border-box;
+  overflow: hidden;
+  font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
+  text-align: left;
+}
+.pace-warn { --pace-c: #ffd27a; }
+.pace-over { --pace-c: #ff6b5e; }
+
+/* The bar and its question labels share rows, so each label sits by its segment. */
+.pace-track {
+  flex: none;
+  height: 100%;
+  display: grid;
+  grid-template-columns: clamp(10px, 7vw, 56px) auto;
+  column-gap: clamp(3px, 1.5vw, 10px);
+  row-gap: clamp(2px, 0.6dvh, 5px);
+}
+
+.pace-seg {
+  position: relative;
+  border: 1.5px solid color-mix(in srgb, var(--pace-c) 45%, transparent);
+  border-radius: clamp(2px, 1vw, 6px);
+  background: color-mix(in srgb, var(--pace-c) 8%, transparent);
+  overflow: hidden;
+  min-height: 0;
+}
+.pace-seg-current {
+  border-color: var(--pace-c);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--pace-c) 40%, transparent);
+}
+.pace-fill {
+  position: absolute;
+  inset: 0 0 auto 0;
+  background: var(--pace-c);
+  opacity: 0.55;
+}
+.pace-seg-current .pace-fill { opacity: 1; }
+
+.pace-q {
+  align-self: center;
+  white-space: nowrap;
+  font-size: clamp(9px, min(3.2vw, 3dvh), 18px);
+  color: var(--pace-c);
+  opacity: 0.45;
+}
+.pace-q-current { opacity: 1; font-weight: 700; }
+
+/* Readouts: sized against the column's width (cqw) and the pace area's height (cqh). */
+.pace-readouts {
+  container: readouts / inline-size;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2px, 2cqh, 18px);
+  color: var(--pace-c);
+  overflow: hidden;
+}
+
+.pace-read {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+  min-width: 0;
+}
+.pace-v {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  font-size: clamp(11px, min(17cqw, 7cqh), 72px);
+  overflow: hidden;
+}
+.pace-l {
+  white-space: nowrap;
+  font-family: system-ui, sans-serif;
+  font-size: clamp(9px, min(8.5cqw, 2.8cqh), 18px);
+  opacity: 0.7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pace-total .pace-v {
+  /* "12:00" is 5 monospace characters, about 3em: 31cqw keeps it inside the column. */
+  font-size: clamp(14px, min(31cqw, 16cqh), 160px);
+}
+.pace-total { margin-bottom: clamp(0px, 1.5cqh, 14px); }
+
+/* Controls: one row of small buttons, pushed to the bottom. */
+.pace-controls {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.pace-row {
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+}
+.pace-controls select,
+.pace-controls button,
+.pace-controls input {
+  font: inherit;
+  font-size: clamp(10px, 6cqw, 14px);
+  color: #ffbfae;
+  background: #ffbfae18;
+  border: 1.5px solid #ffbfae88;
+  border-radius: 0.5em;
+  padding: 0.25em 0.5em;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.pace-controls select { flex: 1 1 0; }
+.pace-controls select option { background: #181818; }
+.pace-controls button { flex: none; cursor: pointer; }
+.pace-controls > button { align-self: flex-start; padding: 0.25em 1.2em; }
+.pace-controls button:hover:not(:disabled) { background: #ffbfae; color: #181818; }
+.pace-controls button:disabled { opacity: 0.4; cursor: default; }
+.pace-controls button.armed { border-color: #ff6b5e; color: #ff6b5e; }
+.pace-custom label {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: clamp(9px, 5cqw, 13px);
+  color: #ffbfaeaa;
+  white-space: nowrap;
+}
+.pace-custom input {
+  width: 100%;
+  padding: 0.2em 0.3em;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.pace-custom input::-webkit-inner-spin-button,
+.pace-custom input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.pace-summary {
+  font-family: system-ui, sans-serif;
+  font-size: clamp(9px, 5.5cqw, 13px);
+  color: #ffbfae99;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Drop order as space runs out: question labels, pages left, page N / P, page time. */
+@media (max-width: 200px) {
+  .pace-q { display: none; }
+}
+@container pace (max-height: 360px) {
+  .pace-summary { display: none; }
+}
+@container pace (max-height: 300px) {
+  .pace-pagesleft, .pace-q { display: none; }
+}
+@container pace (max-height: 230px) {
+  .pace-page { display: none; }
+}
+@container pace (max-height: 160px) {
+  .pace-pageleft { display: none; }
+  .pace-l { display: none; }
+}
+@container readouts (max-width: 80px) {
+  .pace-pagesleft { display: none; }
+}
+@container readouts (max-width: 64px) {
+  .pace-page { display: none; }
+}
+@container readouts (max-width: 48px) {
+  .pace-pageleft, .pace-l { display: none; }
+}

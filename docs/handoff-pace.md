@@ -28,17 +28,18 @@ derived from them. Keep a custom option (questions, minutes, per page) for other
 
 ```text
  ┌──┐
- │▓▓│ Q5        11:48   left overall
- │▓▓│ Q4        page 3 / 10
- │▓▓│ Q3 ◀ now  0:31    left on this page
- │  │ Q2        7 pages left
- │  │ Q1
+ │▓▓│ Q11       11:48   left overall
+ │▓▓│ Q12       page 3 / 10
+ │▓▓│ Q13 ◀ now 0:31    left on this page
+ │  │ Q14       7 pages left
+ │  │ Q15
  └──┘
 ```
 
 - **The bar** runs the full height of the window, on the left, split into **5 segments**
-  (one per question on the page). It fills bottom to top over one page's time, then
-  starts again for the next page. The current segment is highlighted.
+  (one per question on the page). The page's first question is on top, and the bar fills
+  top to bottom over one page's time, the way the eyes move down the page's questions;
+  then it starts again for the next page. The current segment is highlighted.
 - **The readouts** sit to the right of the bar: total time left (the biggest), time left
   on this page, page *N / P*, pages left.
 - **Colour** in clock's existing palette (salmon on dark): on pace, then a warning in
