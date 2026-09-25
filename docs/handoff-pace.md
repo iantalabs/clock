@@ -16,10 +16,10 @@ page**, against one overall time limit. The operator already uses this app the r
 way: `dist/index.html` open as a local file, in a second browser window next to the
 test. The first real run will be the free sample at `cogsample.predictiveindex.com`.
 
-| Preset                    | Questions | Time   | Pages | Per page | Per question |
-| ------------------------- | --------- | ------ | ----- | -------- | ------------ |
-| **Sample**                | 20        | 5 min  | 4     | 75 s     | 15 s         |
-| **Cognitive Assessment**  | 50        | 12 min | 10    | 72 s     | 14.4 s       |
+| Preset                   | Questions | Time   | Pages | Per page | Per question |
+| ------------------------ | --------- | ------ | ----- | -------- | ------------ |
+| **Sample**               | 20        | 5 min  | 4     | 75 s     | 15 s |
+| **Cognitive Assessment** | 50        | 12 min | 10    | 72 s     | 14.4 s |
 
 Questions per page and the total time are what's actually configured. Everything else is
 derived from them. Keep a custom option (questions, minutes, per page) for other tests.
